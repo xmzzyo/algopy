@@ -22,5 +22,5 @@ class Solution:
             cur_r = cur_r.right
             right_d += 1
         if left_d == right_d:
-            return 2 << left_d - 1
+            return pow(2, left_d + 1) - 1
         return self.countNodes(root.left) + self.countNodes(root.right) + 1
