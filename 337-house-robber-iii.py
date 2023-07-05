@@ -13,7 +13,7 @@ class Solution:
     def rob(self, root: Optional[TreeNode]) -> int:
         def rob_tree(cur):
             if cur is None:
-                return 0
+                return [0, 0]
             left = rob_tree(cur.left)
             right = rob_tree(cur.right)
             val1 = cur.val + left[0] + right[0]
