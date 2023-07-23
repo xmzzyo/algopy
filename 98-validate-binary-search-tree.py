@@ -1,7 +1,5 @@
-# https://leetcode.cn/problems/binary-tree-inorder-traversal/solution/python3-er-cha-shu-suo-you-bian-li-mo-ban-ji-zhi-s/
-
 # Definition for a binary tree node.
-from typing import Optional, List
+from typing import Optional
 
 
 class TreeNode:
@@ -12,8 +10,8 @@ class TreeNode:
 
 
 class Solution:
-    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        res = []
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        path = []
         stack = []
         cur = root
         while cur is not None or len(stack) > 0:
@@ -21,7 +19,12 @@ class Solution:
                 stack.append(cur)
                 cur = cur.left
             else:
-                cur = stack.pop(-1)
-                res.append(cur.val)
+                cur = stack.pop()
+                path.append(cur.val)
+                stack.append(cur.right)
                 cur = cur.right
-        return res
+        print(path)
+        for i in range(len(path) - 1):
+            if not path[i] < path[i + 1]:
+                return False
+        return True

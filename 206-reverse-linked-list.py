@@ -8,6 +8,42 @@ class ListNode:
         self.next = next
 
 
+def reverse_link_list(root):
+    p, q = root, root.next
+    p.next = None
+    while q:
+        q_next = q.next
+        q.next = p
+        p, q = q, q_next
+    return p
+
+
+def build_link_list(data):
+    root = ListNode()
+    root.val = data[0]
+    p = root
+    for i in data[1:]:
+        node = ListNode()
+        node.val = i
+        p.next = node
+        p = node
+    return root
+
+
+def print_link_list(root):
+    while root:
+        print(root.val, end="->")
+        root = root.next
+    print()
+
+
+p = build_link_list([1, 2, 3, 4, 5, 6])
+print_link_list(p)
+p = reverse_link_list(p)
+print_link_list(p)
+exit()
+
+
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if head is None:

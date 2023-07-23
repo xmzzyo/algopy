@@ -10,6 +10,21 @@ class TreeNode:
 
 
 class Solution:
+    def isSymmetric1(self, root):
+        if root is None:
+            return True
+
+        def helper(l, r):
+            if not (l or r):
+                return True
+            if not (l and r):
+                return False
+            if l.val != r.val:
+                return False
+            return helper(l.left, r.right) and helper(l.right, r.left)
+
+        return helper(root.left, root.right)
+
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         if root.left is None and root.right is None:
             return True
