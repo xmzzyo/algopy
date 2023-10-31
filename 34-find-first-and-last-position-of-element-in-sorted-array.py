@@ -2,27 +2,36 @@ from typing import List
 
 
 class Solution:
-    def searchRange(self, nums: List[int], target: int) -> List[int]:  # wrong answer
-        def helper(l, r):
-            if l == r:
-                return -1, -1
-            l1, l2, r1, r2 = -1, -1, -1, -1
-            while l <= r:
-                m = l + (r - l) // 2
-                if nums[m] < target:
-                    l = m + 1
-                elif nums[m] > target:
-                    r = m - 1
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        s, e = -1, - 1
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = (r + l) // 2
+            if nums[mid] == target:
+                if mid==0 or nums[mid] != nums[mid - 1]:
+                    s = mid
+                    break
                 else:
-                    if target != nums[m - 1] and target != nums[m + 1]:
-                        return m, m
-                    if nums[m - 1] == target:
-                        l1, r1 = helper(l, m - 1)
-                    if nums[m + 1] == target:
-                        l2, r2 = helper(m + 1, r)
-                    return max(l1, l2), max(r1, r2)
+                    r = mid - 1
+            elif nums[mid] > target:
+                r = mid - 1
+            else:
+                l = mid + 1
 
-        return helper(0, len(nums) - 1)
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = (r + l) // 2
+            if nums[mid] == target:
+                if mid== len(nums)-1 or nums[mid] != nums[mid + 1]:
+                    e = mid
+                    break
+                else:
+                    l = mid + 1
+            elif nums[mid] > target:
+                r = mid - 1
+            else:
+                l = mid + 1
+        return [s, e]
 
 
 print(Solution().searchRange([5, 7, 7, 8, 8, 10], 8))
